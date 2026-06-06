@@ -1,0 +1,8 @@
+Key,Type,Desc,Korean,English,Japanese,Chinese,Chinese-TW [zh-tw]
+Skill/S_TargetSelect_Description,Text,,"스킬 대상 선택 : 대상 &a","Select a target for the skill:
+Targeting &a.","スキルの対象を選択する。
+対象&a","选择技能目标:
+指向&a。",todo_Chinese-TW
+Skill/S_TargetSelect_Name,Text,,대상 &a,Targeting &a.,対象&a,指向&a,todo_Chinese-TW
+Skill/S_ManaSelect_Description,Text,,소모 &a,Expend &a.,消耗&a,消耗&a,todo_Chinese-TW
+Skill/S_ManaSelect_Name,Text,,소모 &a,Expend &a.,消耗&a,消耗&a,todo_Chinese-TW

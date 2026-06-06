@@ -1,0 +1,14 @@
+{
+    "id": "Multiplayer",
+    "Uploader": "贰玖君",
+    "Visibility": "Public",
+    "Title": "Multiplayer",
+    "Author": "贰玖君",
+    "Version": "0.0.1",
+    "Description": "A mod allows game run in multiplayer mode (Test Version).",
+    "TagList": [
+        "Multiplayer"
+    ],
+    "Cover": "Multiplayer.png",
+    "OnlyUploadFiles": false
+}

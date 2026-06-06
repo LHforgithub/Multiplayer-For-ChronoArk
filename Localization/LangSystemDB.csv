@@ -1,0 +1,24 @@
+Key,Type,Desc,Korean,English,Japanese,Chinese,Chinese-TW [zh-tw]
+Text/TargetSelect_EnemyQueue,Text,,왼쪽에서 오른쪽으로 숫자:,Index from left to right:,左から右へ並べる：,从左向右数第几位：,从左向右数第几位：-TW
+UI/Battle/ToolTip/ExceptDeck,Text,,"덱을 제외한 스킬 번호입니다.
+ 여기에 스킬의 가 추가됩니다.
+ 클릭하면 볼 수 있습니다.","The Skills number of Exclude deck.
+ Skill's be excluded will be added here.
+ Click to view them.","除外のデッキのスキル数。
+ 除外されたスキルはここに追加されます
+ クリックすると表示されます。","放逐牌库中的技能的数量。
+ 被放逐的牌将加入此处。
+ 点击查看具体技能。","放逐牌库中的技能的数量。
+ 被放逐的牌将加入此处。
+ 点击查看具体技能。"
+UI/ChooseManaCost,Text,,마나 비용을 선택해주세요,Please choose the Mana cost,マナを消費量を選択してください,请选择要消耗的法力值,请选择要消耗的法力值
+UI/ChooseSkillTarget,Text,,스킬의 대상 선택,Please choose the Skill target.,スキルの対象を選択,请选择技能目标。,请选择技能目标。
+UI/NullEligibleObjects,Text,,적합한 대상이 없음,No eligible targets,該当する対象がない,没有符合条件的对象,没有符合条件的对象
+UI/ViewExceptDeck,Text,,데크를 제외한 전망:,View Exclude Deck:,除外のデッキを確認し：,查看放逐牌库：,查看放逐牌库：
+UI/ChooseSkillBackToDeck,Text,,덱으로 돌아갈 스킬을 선택하십시오,Please choose the Skill that will back to deck,デッキに戻すスキルを選択してください,请选择要返回牌库的技能,请选择要返回牌库的技能
+Battle/Keyword/NoExceptDeck,Text,,휘발성,Ethereal,虚無,虚无,虚无
+Battle/Keyword/NoExceptDeck_Desc,Text,,제외 덱에 추가하지는 않습니다.,Exclude but will not add to Exclude Deck.,除外ですが除外のデッキに追加されません。,放逐，但不会进入放逐牌库。,放逐，但不会进入放逐牌库。
+Battle/Keyword/NoExceptDeck_Color,Text,,FF3535FF,FF3535FF,FF3535FF,FF3535FF,FF3535FF
+Battle/Keyword/BasicMethods_NoExceptDeck,Text,,휘발성,Ethereal,虚無,虚无,虚无
+Battle/Keyword/BasicMethods_NoExceptDeck_Desc,Text,,제외 덱에 추가하지는 않습니다.,Exclude but will not add to Exclude Deck.,除外ですが除外のデッキに追加されません。,放逐，但不会进入放逐牌库。,放逐，但不会进入放逐牌库。
+Battle/Keyword/BasicMethods_NoExceptDeck,Text,,FF3535FF,FF3535FF,FF3535FF,FF3535FF,FF3535FF

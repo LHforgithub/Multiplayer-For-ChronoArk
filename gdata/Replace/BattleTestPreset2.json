@@ -1,0 +1,34 @@
+{
+    "BattleTestPreset2": {
+        "_gdeSchema": "Preset",
+        "PartyEquip": [
+            [
+                
+            ],
+            [
+                
+            ],
+            [
+                
+            ]
+        ],
+        "PartySkills": [
+            [
+                "S_Priest_11",
+                "S_Priest_11",
+                "S_Priest_11",
+                "S_Priest_11",
+                "S_Priest_11"
+            ],
+            [
+                
+            ],
+            [
+                
+            ]
+        ],
+        "LucySkill": [
+            
+        ]
+    }
+}
