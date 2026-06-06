@@ -1,8 +1,0 @@
-{
-    "TestQueue": {
-        "_gdeSchema": "EnemyQueue",
-        "Enemys": [
-            "Boss_Golem"
-        ]
-    }
-}
