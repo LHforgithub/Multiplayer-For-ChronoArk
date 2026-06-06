@@ -158,6 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Connections\DataPackManager.cs" />
+    <Compile Include="Connections\GamePlay\MultiLucyControlManager.cs" />
     <Compile Include="Operations\IOperation.cs" />
     <Compile Include="MultiplayerRootObject.cs" />
     <Compile Include="Operations\OP_Lobby.cs" />
@@ -169,13 +170,10 @@
     <Compile Include="Connections\SteamNetWorks\SteamEventHandler.cs" />
     <Compile Include="Connections\SteamNetWorks\SteamLobby.cs" />
     <Compile Include="Connections\SteamNetWorks\SteamNetworkManager.cs" />
-    <Compile Include="Connections\SteamNetWorks\SinglePlayer.cs" />
     <Compile Include="ModResourcesManager.cs" />
     <Compile Include="MultiplayerPlugin.cs" />
     <Compile Include="UGUI\MultiplayerMainUI.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Connections\GamePlay\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

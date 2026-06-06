@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TileTypes;
 using UnityEngine;
+using static Mono.Security.X509.X520;
 using static UnityEngine.UI.GridLayoutGroup;
 
 namespace Multiplayer.Operations
@@ -76,7 +77,7 @@ namespace Multiplayer.Operations
                 lobby.AllPlayers.Clear();
                 lobby.OtherPlayers.Clear();
                 lobby.NotOwnerPlayers.Clear();
-                lobby.InsPlayers.Clear();
+                lobby.PlayersName.Clear();
                 var localID = SteamNetworkManager.Instance.LocalPlayer.GetAccountID();
                 var ownerID = lobby.Owner.GetAccountID();
                 for (int i = 0; i < num; i++)
@@ -92,7 +93,7 @@ namespace Multiplayer.Operations
                     {
                         lobby.OtherPlayers.Add(memberSteamID);
                     }
-                    lobby.InsPlayers[memberSteamID] = new SinglePlayer(memberSteamID);
+                    lobby.PlayersName[memberSteamID] = SteamFriends.GetFriendPersonaName(memberSteamID).Trim();
                 }
             }
             catch (Exception e)
@@ -114,7 +115,14 @@ namespace Multiplayer.Operations
             {
                 _SNM.NowLobby.OtherPlayers.Add(userID);
             }
-            _SNM.NowLobby.InsPlayers[userID] = new SinglePlayer(userID);
+            try
+            {
+                _SNM.NowLobby.PlayersName[userID] = SteamFriends.GetFriendPersonaName(userID).Trim();
+            }
+            catch (Exception e)
+            {
+                Debug.LogException(e);
+            }
         }
 
         public void RemovePlayer(CSteamID userID)
@@ -127,7 +135,7 @@ namespace Multiplayer.Operations
             _SNM.NowLobby.AllPlayers.Remove(userID);
             _SNM.NowLobby.NotOwnerPlayers.Remove(userID);
             _SNM.NowLobby.OtherPlayers.Remove(userID);
-            _SNM.NowLobby.InsPlayers.Remove(userID);
+            _SNM.NowLobby.PlayersName.Remove(userID);
         }
         private void SetLobbyData(SteamLobby lobby)
         {

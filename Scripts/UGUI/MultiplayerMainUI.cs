@@ -126,7 +126,7 @@ namespace Multiplayer.UGUI
                 GUILayout.BeginHorizontal(GUI.skin.box);
                 var str1 = string.Format(
                     "{0}  ({1}/{2})", 
-                    string.IsNullOrEmpty(lobby.Setting.Name) ? lobby.GetInsPlayer(lobby.Owner)?.UserName + ModResourcesManager.LOBBY_OWNER_ROOM_MSG : lobby.Setting.Name, 
+                    string.IsNullOrEmpty(lobby.Setting.Name) ? lobby.GetPlayerName(lobby.Owner) + ModResourcesManager.LOBBY_OWNER_ROOM_MSG : lobby.Setting.Name, 
                     lobby.AllPlayers.Count, 
                     lobby.Setting.MaxPlayer
                 );
@@ -151,8 +151,8 @@ namespace Multiplayer.UGUI
             bool isLobbyOwner;
             SteamLobby lobby = SteamNetworkManager.Instance.NowLobby;
             //lobby.FetchAllMetadata();
-            lobbyName = string.IsNullOrWhiteSpace(lobby.Setting.Name) ? lobby.GetInsPlayer(lobby.Owner)?.UserName + ModResourcesManager.LOBBY_OWNER_ROOM_MSG : lobby.Setting.Name;
-            lobbyOwner = lobby.GetInsPlayer(lobby.Owner)?.UserName ?? "Unknown";
+            lobbyName = string.IsNullOrWhiteSpace(lobby.Setting.Name) ? lobby.GetPlayerName(lobby.Owner) + ModResourcesManager.LOBBY_OWNER_ROOM_MSG : lobby.Setting.Name;
+            lobbyOwner = lobby.GetPlayerName(lobby.Owner) ?? "Unknown";
             lobbyCapacity = lobby.Setting.MaxPlayer;
             switch (lobby.Setting.LobbyType)
             {
@@ -264,7 +264,7 @@ namespace Multiplayer.UGUI
             GUI.DrawTexture(avatarRect, PlayerAcatarDic.TryGetValue(player,out var pixmap) ? pixmap : fallbackAvatar, ScaleMode.ScaleToFit);
             
             Rect nameRect = new Rect(rowRect.x + 58f, rowRect.y + 8f, rowRect.width - 170f, 22f);
-            GUI.Label(nameRect, string.IsNullOrEmpty(lobby.GetInsPlayer(player)?.UserName) ? "Unknown Player" : lobby.GetInsPlayer(player)?.UserName, playerNameStyle);
+            GUI.Label(nameRect, string.IsNullOrEmpty(lobby.GetPlayerName(player)) ? "Unknown Player" : lobby.GetPlayerName(player), playerNameStyle);
 
             if (lobby.Owner == player)
             {

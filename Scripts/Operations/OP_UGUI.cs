@@ -29,18 +29,18 @@ namespace Multiplayer.Operations
         private void OnGetPlayerAvatar(CSteamID userID)
         {
             if (!_SNM.IsInLobby) return;
-            var player = _SNM.NowLobby.GetInsPlayer(userID);
-            if (player == null) return;
+            var player = _SNM.NowLobby.GetPlayerName(userID);
+            if (string.IsNullOrEmpty(player)) return;
             try
             {
                 SteamFriends.RequestUserInformation(userID, false);
-            var imageID = SteamFriends.GetLargeFriendAvatar(userID);
+                var imageID = SteamFriends.GetLargeFriendAvatar(userID);
 
 #if DEBUG
             Debug.Log("~~~~~~~~~~~~~~~~~~~~~ Starting Steam Avatar ~~~~~~~~~~~~~~~~~~~~~");
             Debug.Log("ImageID: " + imageID);
 #endif
-                if (imageID != -1 && imageID != player.IconID)
+                if (imageID != -1)
                 {
                     SteamUtils.GetImageSize(imageID, out var pnWidth, out var pnHeight);
 #if DEBUG
@@ -54,7 +54,6 @@ namespace Multiplayer.Operations
                     var Pixmap = new Texture2D((int)pnWidth, (int)pnHeight, TextureFormat.RGBA32, false);
                     Pixmap.LoadRawTextureData(FlipTextureVertically(array, (int)pnWidth, (int)pnHeight));
                     Pixmap.Apply();
-                    player.IconID = imageID;
                     _MMUI.PlayerAcatarDic[userID] = Pixmap;
 #if DEBUG
                     Debug.Log("We have completed creating the Steam image");

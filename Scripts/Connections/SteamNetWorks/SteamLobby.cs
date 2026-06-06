@@ -24,20 +24,16 @@ namespace Multiplayer.Connections
         {
             return AllPlayers.Contains(steamID);
         }
-        public SinglePlayer GetInsPlayer(CSteamID steamID)
+        public string GetPlayerName(CSteamID steamID)
         {
-            if (InsPlayers.TryGetValue(steamID, out var player))
-            {
-                return player;
-            }
-            return null;
+            return PlayersName.TryGetValue(steamID, out var result) ? result : string.Empty;
         }
         public CSteamID SteamID { get; set; }
         public CSteamID Owner { get; set; }
         public List<CSteamID> AllPlayers { get; private set; }      = new List<CSteamID>();
         public List<CSteamID> OtherPlayers { get; private set; }    = new List<CSteamID>();
         public List<CSteamID> NotOwnerPlayers { get; private set; } = new List<CSteamID>();
-        public Dictionary<CSteamID, SinglePlayer> InsPlayers {  get; private set; } = new Dictionary<CSteamID, SinglePlayer>();
+        public Dictionary<CSteamID, string> PlayersName {  get; private set; } = new Dictionary<CSteamID, string>();
         public NetWorkSetting Setting { get; private set; }
     }
 }

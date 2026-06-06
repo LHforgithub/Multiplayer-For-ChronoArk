@@ -13,8 +13,14 @@ namespace Multiplayer.Connections
 {
     public class SteamEventHandler : Singleton<SteamEventHandler>
     {
+        public bool IsSteamEventHandlerInit { get; private set; } = false;
+        
         public void Init()
         {
+            if (IsSteamEventHandlerInit)
+            {
+                return;
+            }
             LobbyInvite = Callback<LobbyInvite_t>.Create(new Callback<LobbyInvite_t>.DispatchDelegate(OnLobbyInvite));
             LobbyEnter = Callback<LobbyEnter_t>.Create(new Callback<LobbyEnter_t>.DispatchDelegate(OnLobbyEnter));
             LobbyDataUpdate = Callback<LobbyDataUpdate_t>.Create(new Callback<LobbyDataUpdate_t>.DispatchDelegate(OnLobbyDataUpdate));
@@ -27,6 +33,7 @@ namespace Multiplayer.Connections
             PersonaStateChange = Callback<PersonaStateChange_t>.Create(new Callback<PersonaStateChange_t>.DispatchDelegate(OnPersonaStateChange));
             P2PSessionConnectFail = Callback<P2PSessionConnectFail_t>.Create(new Callback<P2PSessionConnectFail_t>.DispatchDelegate(OnP2PSessionConnectFail));
             P2PSessionRequest = Callback<P2PSessionRequest_t>.Create(new Callback<P2PSessionRequest_t>.DispatchDelegate(OnP2PSessionRequest));
+            IsSteamEventHandlerInit = true;
         }
         public void Execute()
         {
@@ -42,6 +49,7 @@ namespace Multiplayer.Connections
             PersonaStateChange.Dispose();
             P2PSessionConnectFail.Dispose();
             P2PSessionRequest.Dispose();
+            IsSteamEventHandlerInit = false;
         }
         private void OnLobbyInvite(LobbyInvite_t callback)
         {
