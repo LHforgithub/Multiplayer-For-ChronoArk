@@ -1,6 +1,6 @@
 ﻿using EOS;
 using EOS.Attributes;
-using Multiplayer.Connections;
+using Multiplayer.DataModel;
 using Newtonsoft.Json.Linq;
 using Steamworks;
 using System;
@@ -12,64 +12,6 @@ using UnityEngine;
 
 namespace Multiplayer
 {
-    public class Signal_OnUnityUpdate : IEventCode
-    {
-        [EventCodeMethod]
-        public void OnUnityUpdate(GameObject triggerFrom)
-        {
-        }
-    }
-
-    public class Signal_RequestRefreshUGUI : IEventCode
-    {
-        [EventCodeMethod]
-        public void RequestRefreshUGUI(uint delayFrame = 0x10) 
-        { 
-        }
-    }
-
-    //Connections Related
-    public class Signal_OnP2PSessionRequest : IEventCode
-    {
-        [EventCodeMethod]
-        public void OnP2PSessionRequest(CSteamID userID)
-        {
-        }
-    }
-    public class Signal_OnReceivePackage : IEventCode
-    {
-        [EventCodeMethod]
-        public void OnReceivePackage(JObject data, CSteamID fromUser)
-        {
-        }
-    }
-    public class Siganl_SendPackage : IEventCode
-    {
-        /// <summary>
-        /// 按规则送信，内容必须为JObject格式的Json编码才能被解析
-        /// </summary>
-        /// <param name="msgData">只能是<see cref="JObject"/>、<see cref="string"/>类型其中之一</param>
-        [EventCodeMethod]
-        public void TriggerSendPackage(object msgData)
-        {
-        }
-    }
-    public class Signal_OnSendPackageOnce : IEventCode 
-    {
-        [EventCodeMethod]
-        public void OnSendPackage(byte[] data, CSteamID toUser, bool result)
-        {
-        }
-    }
-    public class Signal_PlayerSingleMSG : IEventCode 
-    {
-        [EventCodeMethod]
-        public void PlayerSingleMSG(CSteamID fromUser, string msg)
-        {
-
-        }
-    }
-
     //Steam Lobby
     public class Signal_InitializeLobbyMetadata : IEventCode 
     {
@@ -171,16 +113,6 @@ namespace Multiplayer
         [EventCodeMethod]
         public void OnGetSteamLobbyList(List<CSteamID> lobbies)
         {
-        }
-    }
-    
-    //Player Information
-    public class Signal_GetPlayerAvatar : IEventCode
-    {
-        [EventCodeMethod]
-        public void OnGetPlayerAvatar(CSteamID userID)
-        {
-
         }
     }
 }

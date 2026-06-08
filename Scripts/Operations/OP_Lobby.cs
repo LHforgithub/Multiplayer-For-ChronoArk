@@ -1,6 +1,6 @@
 ﻿using EOS;
 using EOS.Attributes;
-using Multiplayer.Connections;
+using Multiplayer.DataModel;
 using Multiplayer.UGUI;
 using Steamworks;
 using System;
@@ -37,7 +37,7 @@ namespace Multiplayer.Operations
             try
             {
 #if DEBUG
-                Debug.Log("Operation : Initialize Lobby Metadata");
+                Debug.Log("Operation : Initialize Lobby Metadata".DBugText());
 #endif
                 lobby = new SteamLobby(steamID);
                 lobby.Owner = SteamMatchmaking.GetLobbyOwner(steamID);
@@ -72,7 +72,7 @@ namespace Multiplayer.Operations
             {
                 int num = SteamMatchmaking.GetNumLobbyMembers(lobby.SteamID);
 #if DEBUG
-                Debug.Log("Get Members in lobby: " + num.ToString());
+                Debug.Log(("Get Members in lobby: " + num.ToString()).DBugText());
 #endif
                 lobby.AllPlayers.Clear();
                 lobby.OtherPlayers.Clear();
@@ -107,7 +107,7 @@ namespace Multiplayer.Operations
             if (!_SNM.IsNowLocalLobby) return;
             if (_SNM.NowLobby.IsPlayerInLobby(userID)) return;
 #if DEBUG
-            Debug.Log("Operation : Add Player To Now Lobby");
+            Debug.Log("Operation : Add Player To Now Lobby".DBugText());
 #endif
             _SNM.NowLobby.AllPlayers.Add(userID);
             _SNM.NowLobby.NotOwnerPlayers.Add(userID);
@@ -130,7 +130,7 @@ namespace Multiplayer.Operations
             if (!_SNM.IsNowLocalLobby) return;
             if (!_SNM.NowLobby.IsPlayerInLobby(userID)) return;
 #if DEBUG
-            Debug.Log("Operation : Remove Player From Now Lobby");
+            Debug.Log("Operation : Remove Player From Now Lobby".DBugText());
 #endif
             _SNM.NowLobby.AllPlayers.Remove(userID);
             _SNM.NowLobby.NotOwnerPlayers.Remove(userID);
@@ -152,7 +152,7 @@ namespace Multiplayer.Operations
                 return;
             }
 #if DEBUG
-            Debug.Log("Operation : Reset Lobby Custom Data");
+            Debug.Log("Operation : Reset Lobby Custom Data".DBugText());
 #endif
             SteamMatchmaking.SetLobbyData(_SNM.NowLobby.SteamID, nameof(NetWorkSetting.Name), _SNM.NowLobby.Setting.Name);
             SteamMatchmaking.SetLobbyData(_SNM.NowLobby.SteamID, nameof(NetWorkSetting.LobbyType), _SNM.NowLobby.Setting.LobbyType.ToString());
@@ -165,7 +165,7 @@ namespace Multiplayer.Operations
         private void CreateLobby()
         {
 #if DEBUG
-            Debug.Log("Operation : Create Lobby");
+            Debug.Log("Operation : Create Lobby".DBugText());
 #endif
             SteamMatchmaking.CreateLobby(_SNM.Setting.LobbyType, _SNM.Setting.MaxPlayer);
         }
@@ -182,7 +182,7 @@ namespace Multiplayer.Operations
                 LeaveLobby();
             }
 #if DEBUG
-            Debug.Log("Operation : Join Lobby : " + lobby.SteamID.m_SteamID);
+            Debug.Log(("Operation : Join Lobby : " + lobby.SteamID.m_SteamID).DBugText());
 #endif
             SteamMatchmaking.JoinLobby(lobby.SteamID);
         }
@@ -195,7 +195,7 @@ namespace Multiplayer.Operations
                 return;
             }
 #if DEBUG
-            Debug.Log("Operation : Leave Lobby : " + _SNM.NowLobby.SteamID.m_SteamID);
+            Debug.Log(("Operation : Leave Lobby : " + _SNM.NowLobby.SteamID.m_SteamID).DBugText());
 #endif
             SteamMatchmaking.LeaveLobby(_SNM.NowLobby.SteamID);
             EOSManager.BroadCast<Signal_OnLeaveLobby>(_SNM.NowLobby);
@@ -210,7 +210,7 @@ namespace Multiplayer.Operations
                 return;
             }
 #if DEBUG
-            Debug.Log("Operation : Disband Lobby");
+            Debug.Log("Operation : Disband Lobby".DBugText());
 #endif
             for (int i = 0; i < _SNM.NowLobby.NotOwnerPlayers.Count; i++)
             {
@@ -253,7 +253,7 @@ namespace Multiplayer.Operations
                 return;
             }
 #if DEBUG
-            Debug.Log("Operation : Kick Player : " + _SNM.NowLobby.GetInsPlayer(userID).UserName);
+            Debug.Log(("Operation : Kick Player : " + _SNM.NowLobby.GetPlayerName(userID)).DBugText());
 #endif
             var data = (ModResourcesManager.KICK_PLAYER_MSG_HEAD + userID.m_SteamID.ToString()).ToByteArray();
             SteamMatchmaking.SendLobbyChatMsg(userID, data, data.Length);
@@ -263,7 +263,7 @@ namespace Multiplayer.Operations
         private void ChangeNowLobby(SteamLobby lobby)
         {
 #if DEBUG
-            Debug.Log("Operation : Change Lobby To : " + (lobby?.SteamID.m_SteamID.ToString() ?? "Null"));
+            Debug.Log(("Operation : Change Lobby To : " + (lobby?.SteamID.m_SteamID.ToString() ?? "Null")).DBugText());
 #endif
             _SNM.NowLobby = lobby;
             if (lobby == null) return;
@@ -279,7 +279,7 @@ namespace Multiplayer.Operations
         private void GetSteamLobbyList()
         {
 #if DEBUG
-            Debug.Log("Operation : Get Steam Lobby List.");
+            Debug.Log("Operation : Get Steam Lobby List.".DBugText());
 #endif
             SteamMatchmaking.AddRequestLobbyListDistanceFilter(ELobbyDistanceFilter.k_ELobbyDistanceFilterWorldwide);
             SteamMatchmaking.RequestLobbyList();
@@ -289,7 +289,7 @@ namespace Multiplayer.Operations
         private void OnGetSteamLobbyList(List<CSteamID> lobbies)
         {
 #if DEBUG
-            Debug.Log("Operation : Get Steam Lobby List, Count : " + lobbies.Count + " Set to SNM.");
+            Debug.Log(("Operation : Get Steam Lobby List, Count : " + lobbies.Count + " Set to SNM.").DBugText());
 #endif
             _SNM.LobbiesList.Clear();
             for (int i = 0; i < lobbies.Count; i++)

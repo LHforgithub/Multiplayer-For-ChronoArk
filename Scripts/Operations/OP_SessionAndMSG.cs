@@ -1,6 +1,6 @@
 ﻿using EOS;
 using EOS.Attributes;
-using Multiplayer.Connections;
+using Multiplayer.DataModel;
 using Steamworks;
 using System;
 using System.Collections.Generic;
@@ -16,6 +16,14 @@ namespace Multiplayer.Operations
     internal class OP_SessionAndMSG : IOperation, IEventListener
     {
         private SteamNetworkManager _SNM => SteamNetworkManager.Instance;
+
+        private readonly JsonConverter[] Converters = new JsonConverter[3]
+        {
+            new Vector2Converter(),
+            new Vector3Converter(),
+            new Vector4Converter(),
+        };
+
         public void Init()
         {
             EOSManager.AddListener(this);
@@ -33,21 +41,35 @@ namespace Multiplayer.Operations
             while(ReceivePackage()) continue;
         }
 
-        [EventListener(typeof(Siganl_SendPackage))]
+        [EventListener(typeof(Signal_SendPackage))]
         public void SendPackage(object msgData)
         {
             if (_SNM.NowLobby == null)
             {
+#if DEBUG
+                Debug.Log("Operation: Send Package can not send when player is not in any lobby.".DBugText());
+#endif
                 return;
             }
             var data = new byte[0];
-            if (msgData is string str)
+            if (msgData == null)
+            {
+#if DEBUG
+                Debug.Log("Operation: Send Package can not send a null value.".DBugText());
+#endif
+                return;
+            }
+            else if (msgData is string str)
             {
                 data = Encoding.UTF8.GetBytes(str);
             }
             else if (msgData is JObject jObject) 
             {
                 data = Encoding.UTF8.GetBytes(jObject.ToString());
+            }
+            else
+            {
+                data = Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(msgData, Converters));
             }
             if (data.Length < 1) return;
             if (_SNM.IsNowLocalLobby)
@@ -92,9 +114,9 @@ namespace Multiplayer.Operations
                     if (SteamNetworking.ReadP2PPacket(array, num, out var num2, out var csteamID))
                     {
 #if DEBUG
-                        Debug.Log("Received a package from " + csteamID.ToString());
+                        Debug.Log(("Received a package from " + csteamID.ToString()).DBugText());
 #endif
-                        var jObject = JsonConvert.DeserializeObject<JObject>(Encoding.UTF8.GetString(array));
+                        var jObject = JsonConvert.DeserializeObject<JObject>(Encoding.UTF8.GetString(array), Converters);
                         EOSManager.BroadCast<Signal_OnReceivePackage>(jObject, csteamID);
                     }
                 }

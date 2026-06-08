@@ -8,6 +8,10 @@ namespace Multiplayer
 {
     internal static class Extensions
     {
+        public static string DBugText(this string str)
+        {
+            return "[Mod Multiplayer Log] " + str;
+        }
         public static byte[] ToByteArray(this string str)
         {
             return Encoding.UTF8.GetBytes(str);

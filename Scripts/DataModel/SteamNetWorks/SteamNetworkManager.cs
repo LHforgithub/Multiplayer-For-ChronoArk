@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Multiplayer.Connections
+namespace Multiplayer.DataModel
 {
     public class SteamNetworkManager : Singleton<SteamNetworkManager>
     {

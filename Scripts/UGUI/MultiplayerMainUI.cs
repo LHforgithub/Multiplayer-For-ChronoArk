@@ -1,6 +1,6 @@
 using ChronoArkMod.Plugin;
 using EOS;
-using Multiplayer.Connections;
+using Multiplayer.DataModel;
 using Steamworks;
 using System;
 using System.Collections.Generic;

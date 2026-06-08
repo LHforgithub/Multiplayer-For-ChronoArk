@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using TileTypes;
 using UnityEngine;
 
-namespace Multiplayer.Connections
+namespace Multiplayer.DataModel
 {
     public class SteamEventHandler : Singleton<SteamEventHandler>
     {
@@ -57,7 +57,7 @@ namespace Multiplayer.Connections
             var lobby = callback.m_ulSteamIDLobby;
             var gameID = callback.m_ulGameID;
 #if DEBUG
-            Debug.Log("Got Invited! :) -  ID: " + lobby.ToString());
+            Debug.Log(("Got Invited! :) -  ID: " + lobby.ToString()).DBugText());
 #endif
         }
 
@@ -69,7 +69,7 @@ namespace Multiplayer.Connections
             var successEnum = callback.m_EChatRoomEnterResponse;
             var lobbyID = new CSteamID(lobby);
 #if DEBUG
-            Debug.Log("Entered Lobby: " + successEnum.ToString() + " - " + lobby.ToString());
+            Debug.Log(("Entered Lobby: " + successEnum.ToString() + " - " + lobby.ToString()).DBugText());
 #endif
             if (!blocked && successEnum == 1)
             {
@@ -78,7 +78,7 @@ namespace Multiplayer.Connections
             else
             {
                 EOSManager.BroadCast<Signal_OnJoinLobby>(null, false);
-                Debug.Log(">>>");
+                Debug.Log(">>>".DBugText());
             }
 
             //更新大厅信息。
@@ -99,7 +99,7 @@ namespace Multiplayer.Connections
             if (success > 0)
             {
 #if DEBUG
-                Debug.Log("Lobby Data Updated for some reason");
+                Debug.Log("Lobby Data Updated for some reason".DBugText());
 #endif
                 //更新大厅信息。
                 var eventParams = new object[2] { lobbyID, null };
@@ -120,7 +120,7 @@ namespace Multiplayer.Connections
             var targetPlayerID = new CSteamID(targetPlayer);
             var causePlayerID = new CSteamID(causePlayer);
 #if DEBUG
-            Debug.Log("Lobby Character Data Updated for some reason");
+            Debug.Log("Lobby Character Data Updated for some reason".DBugText());
 #endif
             //更新大厅信息。
             var eventParams = new object[2] { lobbyID, null };
@@ -140,7 +140,7 @@ namespace Multiplayer.Connections
             var lobbyID = new CSteamID(lobby);
             var chatterID = new CSteamID(chatter);
 #if DEBUG
-            Debug.Log("Lobby Chat Message");
+            Debug.Log("Lobby Chat Message".DBugText());
 #endif
             var chatMSG = new byte[4000];
             SteamMatchmaking.GetLobbyChatEntry(chatterID, (int)chatIndex, out var _, chatMSG, 4000, out var _);
@@ -162,7 +162,7 @@ namespace Multiplayer.Connections
         {
             var lobbiesMatching = callback.m_nLobbiesMatching;
 #if DEBUG
-            Debug.Log("Lobby Match List: " + lobbiesMatching.ToString());
+            Debug.Log(("Lobby Match List: " + lobbiesMatching.ToString()).DBugText());
 #endif
             var lobbies = new List<CSteamID>();
             for (int i = 0; i < lobbiesMatching; i++)
@@ -184,7 +184,7 @@ namespace Multiplayer.Connections
                 result.ToString(),
                 " - Steam ID- ",
                 lobbyID.ToString()
-            }));
+            }).DBugText());
 #endif
             EOSManager.BroadCast<Signal_OnCreateLobby>(lobbyID, result==EResult.k_EResultOK);
             //更新大厅信息。
@@ -200,7 +200,7 @@ namespace Multiplayer.Connections
             var steamIDLobby = callback.m_steamIDLobby;
             var steamIDFriend = callback.m_steamIDFriend;
 #if DEBUG
-            Debug.Log("Entered via invite/join - " + steamIDLobby.ToString() + " - ID: " + steamIDLobby.ToString());
+            Debug.Log(("Entered via invite/join - " + steamIDLobby.ToString() + " - ID: " + steamIDLobby.ToString()).DBugText());
 #endif
             SteamMatchmaking.JoinLobby(steamIDLobby);
         }
@@ -212,7 +212,7 @@ namespace Multiplayer.Connections
             var width = callback.m_iWide;
             var height = callback.m_iTall;
 #if DEBUG
-            Debug.Log("Steam Avatar is downloaded! " + steamID.ToString() + " - size: " + width.ToString());
+            Debug.Log(("Steam Avatar is downloaded! " + steamID.ToString() + " - size: " + width.ToString()).DBugText());
 #endif
             EOSManager.BroadCast<Signal_GetPlayerAvatar>(steamID);
         }
@@ -247,7 +247,7 @@ namespace Multiplayer.Connections
             var remoteID = callback.m_steamIDRemote;
             var paramP2PSessionError = callback.m_eP2PSessionError;
 #if DEBUG
-            Debug.Log("onP2PSessionConnectFail - Remote ID: " + remoteID.ToString() + " - Error: " + paramP2PSessionError.ToString());
+            Debug.Log(("OnP2PSessionConnectFail - Remote ID: " + remoteID.ToString() + " - Error: " + paramP2PSessionError.ToString()).DBugText());
 #endif
         }
 
@@ -255,7 +255,7 @@ namespace Multiplayer.Connections
         {
             var paramSteamID = callback.m_steamIDRemote;
 #if DEBUG
-            Debug.Log("onP2PSessionRequest - Remote ID: " + paramSteamID.ToString());
+            Debug.Log(("onP2PSessionRequest - Remote ID: " + paramSteamID.ToString()).DBugText());
 #endif
             EOSManager.BroadCast<Signal_OnP2PSessionRequest>(paramSteamID);
         }

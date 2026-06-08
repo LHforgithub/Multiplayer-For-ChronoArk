@@ -1,7 +1,7 @@
 ﻿using ChronoArkMod.Plugin;
 using EOS;
 using Multiplayer.Operations;
-using Multiplayer.Connections;
+using Multiplayer.DataModel;
 using Multiplayer.UGUI;
 using System;
 using System.Collections;
@@ -47,7 +47,7 @@ namespace Multiplayer
                 if (SteamManager.Initialized)
                 {
 #if DEBUG
-                    Debug.Log("Multiplayer Steam Initializing");
+                    Debug.Log("Multiplayer Steam Initializing".DBugText());
 #endif
                     SteamNetworkManager.Instance.Init();
                     SteamEventHandler.Instance.Init();
@@ -57,13 +57,13 @@ namespace Multiplayer
                         var op = Activator.CreateInstance(opType) as IOperation;
                         op.Init();
 #if DEBUG
-                        Debug.Log("Multiplayer Create Operation Instance :" + op.GetType().FullName);
+                        Debug.Log(("Multiplayer Create Operation Instance :" + op.GetType().FullName).DBugText());
 #endif
                         _operations.Add(op);
                     }
                     steamInitialized = true;
 #if DEBUG
-                    Debug.Log("Multiplayer Steam Initialized");
+                    Debug.Log("Multiplayer Steam Initialized".DBugText());
 #endif
                     yield break;
                 }

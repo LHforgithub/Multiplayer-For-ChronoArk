@@ -1,6 +1,6 @@
 ﻿using EOS;
 using EOS.Attributes;
-using Multiplayer.Connections;
+using Multiplayer.DataModel;
 using Multiplayer.UGUI;
 using Steamworks;
 using System;
@@ -9,10 +9,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace Multiplayer.Operations
 {
-    internal class OP_UGUI : IOperation, IEventListener
+    internal class OP_MainGUI : IOperation, IEventListener
     {
         private SteamNetworkManager _SNM => SteamNetworkManager.Instance;
         private MultiplayerMainUI _MMUI => MultiplayerRootObject.Instance.MainUI;
@@ -37,7 +38,7 @@ namespace Multiplayer.Operations
                 var imageID = SteamFriends.GetLargeFriendAvatar(userID);
 
 #if DEBUG
-            Debug.Log("~~~~~~~~~~~~~~~~~~~~~ Starting Steam Avatar ~~~~~~~~~~~~~~~~~~~~~");
+            Debug.Log("~~~~~~~~~~~~~~~~~~~~~ Starting Steam Avatar ~~~~~~~~~~~~~~~~~~~~~".DBugText());
             Debug.Log("ImageID: " + imageID);
 #endif
                 if (imageID != -1)
@@ -56,7 +57,7 @@ namespace Multiplayer.Operations
                     Pixmap.Apply();
                     _MMUI.PlayerAcatarDic[userID] = Pixmap;
 #if DEBUG
-                    Debug.Log("We have completed creating the Steam image");
+                    Debug.Log("We have completed creating the Steam image".DBugText());
 #endif
                     }
                 }
@@ -75,5 +76,6 @@ namespace Multiplayer.Operations
             }
             return array;
         }
+
     }
 }
